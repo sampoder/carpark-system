@@ -28,5 +28,5 @@ export default async function handler(req, res) {
     });
   });
   children.sort((a, b) => b.time.toString().localeCompare(a.time.toString()));
-  res.status(200).json(children.slice(0, 5));
+  res.status(200).json(children);
 }
