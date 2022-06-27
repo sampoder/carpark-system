@@ -13,20 +13,22 @@ generator client {
 model Child {
   id      String                    @id
   name    String
-  image   String
+  image   String?
+  class   String @default("11BK")
+  room    String @default("E620")
   parent  ChildParentRelationship[]
 }
 
 model ChildParentRelationship {
   id       String @id @default(cuid())
   parent   Parent @relation(fields: [parentId], references: [id])
-  parentId String
+  parentId Int
   childId  String
   child    Child  @relation(fields: [childId], references: [id])
 }
 
 model Parent {
-  id       String                    @id
+  id       Int                    @id @default(autoincrement())
   name     String
   children ChildParentRelationship[]
   pickups  Pickup[]
@@ -34,7 +36,7 @@ model Parent {
 
 model Pickup {
   id       String @id @default(cuid())
-  parentId String
+  parentId Int
   parent   Parent @relation(fields: [parentId], references: [id])
   createdAt DateTime @default(now())
 }
